@@ -1,0 +1,378 @@
+{% extends 'base.html.twig' %}
+{% block title %}Generate Diet{% endblock %}
+
+{% block stylesheets %}
+    {# Include your custom stylesheets here #}
+     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+    <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+    
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #f6f7fb;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: 400px;
+  width: 100%;
+}
+.container .steps {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.steps .circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  color: #999;
+  font-size: 22px;
+  font-weight: 500;
+  border-radius: 50%;
+  background: #fff;
+  border: 4px solid #e0e0e0;
+  transition: all 200ms ease;
+  transition-delay: 0s;
+}
+.steps .circle.active {
+  transition-delay: 100ms;
+  border-color: #4070f4;
+  color: #4070f4;
+}
+.steps .progress-bar {
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #e0e0e0;
+  z-index: -1;
+}
+.progress-bar .indicator {
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  background: #4070f4;
+  transition: all 300ms ease;
+}
+.container .buttons {
+  display: flex;
+  gap: 20px;
+}
+.buttons button {
+  padding: 8px 25px;
+  background: #000000;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+  transition: all 200ms linear;
+}
+.buttons button:active {
+  transform: scale(0.97);
+}
+.buttons button:disabled {
+  background: #87a5f8;
+  cursor: not-allowed;
+}
+body {
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  background: #f6f7fb;
+}
+
+.container {
+  max-width: 400px;
+  width: 100%;
+  margin: 40px auto; /* Add margin to the top and bottom */
+  min-height: calc(100vh - 80px); /* Adjust the value based on your design */
+  display: flex;
+  flex-direction: column;
+}
+
+    </style>
+{% endblock %}
+
+{% block body %}
+<body>
+ 
+<div class="container">
+      <div class="steps">
+        <span class="circle active">1</span>
+        <span class="circle">2</span>
+        <span class="circle">3</span>
+        <span class="circle">4</span>
+         <span class="circle">5</span>
+        <div class="progress-bar">
+          <span class="indicator"></span>
+        </div>
+      </div>
+
+    
+     <div id="step1" class="step-content">
+        <!-- Step 1 Content -->
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age"><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select><br>
+
+        <label for="weight">Weight (kg):</label>
+        <input type="text" id="weight" name="weight" placeholder="In kilograms"><br>
+
+        <label for="height">Height (cm):</label>
+        <input type="text" id="height" name="height" placeholder="In centimeters"><br>
+    </div>
+    <div id="step2" class="step-content" style="display: none;">
+        <!-- Step 2 Content -->
+        <label for="activityLevel">Physical Activity Level:</label>
+        <select id="activityLevel" name="activityLevel">
+            <option value="sedentary">Sedentary</option>
+            <option value="lightly">Lightly Active</option>
+            <option value="moderately">Moderately Active</option>
+            <option value="very_active">Very Active</option>
+            <option value="extremely_active">Extremely Active</option>
+        </select><br>
+    </div>
+    <div id="step3" class="step-content" style="display: none;">
+        <!-- Step 3 Content -->
+        <label>What's your goal?</label><br>
+        <input type="radio" id="goal_gain" name="goal" value="gain">
+        <label for="goal_gain">Weight Gain</label>
+
+        <input type="radio" id="goal_loss" name="goal" value="loss">
+        <label for="goal_loss">Weight Loss</label>
+
+        <input type="radio" id="goal_maintain" name="goal" value="maintain">
+        <label for="goal_maintain">Maintain Weight</label><br>
+    </div>
+    <div id="step4" class="step-content" style="display: none;">
+        <!-- Step 4 Content -->
+        <label for="duration">Choose the duration of the diet:</label>
+        <select id="duration" name="duration">
+            <option value="4-6">4 weeks - 6 weeks</option>
+            <option value="8-12">8 weeks - 12 weeks</option>
+            <option value="14-18">14 weeks - 18 weeks</option>
+            <option value="more">More than 18 weeks</option>
+        </select><br>
+    </div>
+    <div id="step5" class="step-content" style="display: none;">
+        <!-- Step 5 Content -->
+        <label>Do you have a preference for the diet?</label><br>
+        <input type="radio" id="preference_all" name="preference" value="all">
+        <label for="preference_all">Doesn't matter</label>
+
+        <input type="radio" id="preference_vegan" name="preference" value="vegan">
+        <label for="preference_vegan">Vegan</label>
+
+        <input type="radio" id="preference_no_dairy" name="preference" value="no_dairy">
+        <label for="preference_no_dairy">No Dairy</label>
+
+        <input type="radio" id="preference_gluten_free" name="preference" value="gluten_free">
+        <label for="preference_gluten_free">Gluten-Free</label><br>
+       
+    </div>
+    <div class="buttons">
+        <button id="prev" disabled>Prev</button>
+        <button id="next">Next</button>
+        
+    </div>
+
+</div>
+
+<script>
+   const circles = document.querySelectorAll(".circle");
+    const progressBar = document.querySelector(".indicator");
+    const buttons = document.querySelectorAll("button");
+    let currentStep = 1;
+
+    const updateSteps = () => {
+        const stepContents = document.querySelectorAll(".step-content");
+
+        // Hide all step contents
+        stepContents.forEach((step) => (step.style.display = "none"));
+
+        // Show the current step content
+        document.getElementById(`step${currentStep}`).style.display = "block";
+
+        circles.forEach((circle, index) => {
+            circle.classList.toggle("active", index < currentStep);
+        });
+
+        progressBar.style.width = `${(currentStep - 1) * 25}%`;
+
+        buttons[0].disabled = currentStep === 1;
+       
+   // Dynamically change "Next" button to "Generate" in Step 5
+        if (currentStep === 5) {
+            buttons[1].innerText = "Generate";
+            buttons[1].style.backgroundColor = "#4CAF50"; // Green background color
+            buttons[1].id = "generate";
+        } else {
+            buttons[1].innerText = "Next";
+            buttons[1].style.backgroundColor = "#000000"; // Reset to default color
+            buttons[1].id = "next";
+        }
+    };
+
+
+    // Function to calculate total calories (simplified example)
+    const calculateTotalCalories = () => {
+        const age = parseInt(document.getElementById("age").value);
+        const gender = document.getElementById("gender").value;
+        const weight = parseInt(document.getElementById("weight").value);
+        const height = parseInt(document.getElementById("height").value);
+        const activityLevel = document.getElementById("activityLevel").value;
+        const goal = document.querySelector('input[name="goal"]:checked').value;
+        // Example calorie calculation (simplified)
+        let basalMetabolicRate = 0;
+
+        if (gender === "male") {
+            basalMetabolicRate = 10  * weight + 6.25 * height - 5 * age + 5;
+        } else if (gender === "female") {
+            basalMetabolicRate = 10 * weight  + 6.25 * height  - 5 * age  - 161;
+        }
+
+        // Adjust BMR based on activity level
+        let totalCalories = 0;
+
+        switch (activityLevel) {
+            case "sedentary":
+                totalCalories = basalMetabolicRate * 1.2;
+                break;
+            case "lightly":
+                totalCalories = basalMetabolicRate * 1.375;
+                break;
+            case "moderately":
+                totalCalories = basalMetabolicRate * 1.55;
+                break;
+            case "very_active":
+                totalCalories = basalMetabolicRate * 1.725;
+                break;
+            case "extremely_active":
+                totalCalories = basalMetabolicRate * 1.9;
+                break;
+            default:
+                break;
+        }
+
+
+         // Adjust total calories based on weight goal
+        if (goal === "loss") {
+            totalCalories -= 500; // Adjust for weight loss
+        } else if (goal === "gain") {
+            totalCalories += 500; // Adjust for weight gain
+        }
+
+        console.log("Total Calories:", totalCalories);
+          // Return totalCalories
+        return totalCalories;
+    };
+       buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            if (button.id === "next" && currentStep < circles.length) {
+                currentStep++;
+            } else if (button.id === "prev" && currentStep > 1) {
+                currentStep--;
+            } else if (button.id === "generate") {
+                calculateTotalCalories();
+                // Retrieve user ID from app.user
+        // Retrieve user ID from app.user
+        const userId = {{ app.user.id ?? 'null' }};
+
+        // Create an object representing the User entity
+        const user = { id: userId };  // Add other properties if needed
+
+       
+
+        const age = document.getElementById("age").value;
+        const gender = document.getElementById("gender").value;
+        const weight = document.getElementById("weight").value;
+        const height = document.getElementById("height").value;
+        const userCalories = calculateTotalCalories();
+        const caloriesRange = 150; // Set your desired calories range
+        const userDuration = document.getElementById("duration").value;
+        const userPreference = document.querySelector('input[name="preference"]:checked')
+                        ? document.querySelector('input[name="preference"]:checked').value
+                        : null;
+        var userGoal = document.querySelector('input[name="goal"]:checked').value;
+
+        if (userGoal === 'loss') {
+            userGoal = 'Weight Loss';
+        }
+         else if (userGoal === 'gain'){
+            userGoal = 'Weight Gain';
+         }
+         else{
+            userGoal = 'Maintenance and staying healthy';
+         }
+
+
+        const data = JSON.stringify({ age, gender, weight, height, user,userCalories,caloriesRange,userDuration,userPreference,userGoal });
+
+        
+            // Create a form element
+    const form = document.createElement("form");
+
+    // Set form attributes
+    form.method = "POST";
+    form.action = "{{ path('save_user_details') }}";
+
+    // Create input fields for each parameter
+    const createInput = (name, value) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.value = value;
+        return input;
+    };
+
+    form.appendChild(createInput("age", age));
+    form.appendChild(createInput("gender", gender));
+    form.appendChild(createInput("weight", weight));
+    form.appendChild(createInput("height", height));
+    form.appendChild(createInput("userId", user.id));
+    form.appendChild(createInput("userCalories", userCalories));
+    form.appendChild(createInput("caloriesRange", caloriesRange));
+    form.appendChild(createInput("userDuration", userDuration));
+    form.appendChild(createInput("userPreference", userPreference));
+    form.appendChild(createInput("userGoal", userGoal));
+
+    // Append the form to the body
+    document.body.appendChild(form);
+
+    // Submit the form
+    form.submit();
+            
+            }
+            updateSteps();
+        });
+    });
+
+    updateSteps(); // Call initially to set up the initial state
+
+   
+</script>
+</body>
+{% endblock %}

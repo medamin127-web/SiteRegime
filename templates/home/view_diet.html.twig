@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+{% block title %}Diet{% endblock %}
+
+{% block stylesheets %}
+    {# Include your custom stylesheets here #}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <style>
+        /* Add custom fonts if desired */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f6f7fb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .container h1 {
+            text-align: left;
+            font-size: 35px;
+            color: #333;
+        }
+
+        .container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .container h3 {
+            font-size: 20px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .container h4 {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .container p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .container img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            margin-top: 10px;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .container .meal-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .container .meal-details {
+            flex-grow: 1;
+        }
+
+        .container .meal-details strong {
+            font-size: 30px;
+        }
+
+        .container .total-info {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .container .total-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .container .total-info p {
+            font-size: 18px;
+            color: #28a745; /* Green color for total values */
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .container .meal-container {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .container .meal-container:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .container .meal-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .container .ingredients {
+            color: #777;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="color:cadetblue">{{ diet.dietName }}</h1>
+            <div>
+                Category: <a href="{{ path('diet_category', {'categoryName': diet.category.categoryName}) }}" style="color:cadetblue">{{ diet.category.categoryName }}</a>
+            </div>
+        </div>
+        <img src="{{ asset('uploads/diet_images/' ~ diet.image) }}" alt="{{ diet.dietName }} Image" style="max-width: 800px; margin: auto;">
+
+        <div style="text-align: left; margin-top: 20px;">
+            {% if diet.description is not null %}
+                <p>{{ diet.description }}</p>
+            {% endif %}
+
+            <h2>Meals:</h2>
+            {% set totalCalories = 0 %}
+            {% set totalCost = 0 %}
+
+            {% for platDiet in diet.platDiets %}
+                {% set totalCalories = totalCalories + platDiet.plat.nbrCalories %}
+                {% set totalCost = totalCost + platDiet.plat.cout %}
+                <div style="margin-bottom: 20px; border: 1px solid #ddd; padding: 10px; border-radius: 8px;">
+                    <h3>Meal ({{ loop.index }}):</h3>
+                    <div class="meal-info">
+                        <div class="meal-details">
+                            <strong>{{ platDiet.plat.nomplat }}</strong>
+                        </div>
+                        <div class="meal-details">
+                            <span>{{ platDiet.plat.cout }} TND</span> |
+                            <span>{{ platDiet.plat.nbrCalories }} Calories</span>
+                        </div>
+                    </div>
+                    <img src="{{ asset('uploads/plat_images/' ~ platDiet.plat.image) }}" alt="{{ platDiet.plat.nomplat }} Image">
+
+                    <h4>Ingredients:</h4>
+                    <p>{{ platDiet.plat.ingredients }}</p>
+                </div>
+            {% endfor %}
+
+            <div class="total-info">
+                <h2>Total Calories:</h2>
+                <p>{{ totalCalories }} Calories</p>
+
+                <h2>Total Cost:</h2>
+                <p>{{ totalCost }} TND</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

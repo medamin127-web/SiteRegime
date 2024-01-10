@@ -1,0 +1,7 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+# config/routes.yaml
+generate_result:
+    path: /generate-result
+    controller: App\Controller\CustomizeDietController::generateResult

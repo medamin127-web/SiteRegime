@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/login-style.css') }}">
+    <title>Login</title>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        {% if error %}
+            <div style="color:red ; font-weight:bold;">Email or Password incorrect</div>
+        {% endif %}
+        <form method="post" action="{{ path('app_login') }}">
+            <label for="email" style="text-align:justify;margin-bottom:-5px">Email</label>
+            <input type="text" id="email" name="email" value="{{ last_username }}" required >
+
+            <label for="password" style="text-align:justify;margin-bottom:-5px">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p>Don't have an account? <a href="{{ path('app_signup') }}">Sign up here</a>.</p>
+    </div>
+
+</body>
+</html>

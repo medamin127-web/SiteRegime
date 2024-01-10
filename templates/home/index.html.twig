@@ -1,0 +1,307 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block stylesheets %}
+    {# Include your custom stylesheets here #}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+    <style>
+    .more-diets-button{
+        color:white;
+        background-color: green
+    }
+     .more-diets-button:hover
+     {
+        color:white;
+        background-color:#469f46
+     }
+     .goal-category-section {
+   
+    padding: 4em 2em;
+    text-align: center;
+    margin: auto;
+    max-width: 2000px
+}
+/* Add this to your stylesheet or in a <style> tag in the head of your HTML */
+
+h2 {
+    text-align: justify;
+    font-size: 35px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.diet-cards {
+    display: flex;
+    
+    justify-content: space-around;
+}
+
+.diet-card {
+    width: 300px;
+    margin: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.2s;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.diet-card:hover {
+    transform: scale(1.05);
+}
+
+.diet-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.diet-info {
+    text-align: left;
+}
+
+.diet-name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.diet-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.diet-calories {
+    font-size: 14px;
+    color: #777;
+}
+
+     .transparent-button {
+    color: black;
+    font-family: Roboto;
+    background-color: transparent;
+    border: 2px solid white;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.transparent-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+.section-container {
+    max-width: 1500px;
+    margin: auto;
+}
+#hero{
+    
+    width: 100%;
+    
+    display: table;
+    margin: 0;
+    max-width: 100%;
+
+    background-image: url('https://s15.banner_test.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.testimonial img {
+    max-width: 250px;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    height: 200px;
+}
+    </style>
+{% endblock %}
+    
+{% block body %}
+<body>
+
+    
+   
+    <!-- Hero Section -->
+    <section id="hero" style="background-image: url('{{ asset('uploads/generatediet.png') }}');">
+        <div class="cta-container">
+            <h1 style="font-family:Bebas Neue;font-size:50px">Personalized Diets Tailored To Your Goals And Information</h1>
+            {% if app.user %}
+            <a href="{{ path('generate_diet') }}" class="cta-button  transparent-button" style="color:white">Get Started</a>
+            {% else %}
+            <a href="{{ path('app_login') }}" class="cta-button  transparent-button" style="color:white">Get Started</a>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about-us">
+        <div class="about-us-container">
+            <h2>About Us</h2>
+            <p style="font-family: 'Roboto', sans-serif;">Welcome to EatSmartLife – your ultimate destination for personalized diet plans crafted by fitness coaches and nutrition experts. Discover a variety of diets tailored to different goals, from weight loss to muscle gain, all backed by evidence-based research. Our user-friendly platform provides easy access to expertly designed meal plans and tips, empowering you to achieve a healthier, fitter lifestyle. Join us on your wellness journey, where expertise meets convenience. Welcome to a vibrant and healthier you!
+
+</p>
+            <!-- Add more content as needed -->
+        </div>
+    </section>
+
+<!-- Weight Loss Section -->
+<section class="goal-category-section" id="weight-loss">
+    <div class="section-container">
+        <h2>Weight Loss Diets</h2>
+        <!-- Diet Cards -->
+        <div class="diet-cards">
+            {% for diet in weightLossDiets %}
+                <div class="diet-card" onclick="window.location='{{ path('view_diet', {'id': diet.id}) }}';">
+                    <img class="diet-image" src="{{ asset('uploads/diet_images/' ~ diet.image) }}" alt="{{ diet.dietName }} Image">
+                    <div class="diet-info">
+                        <div class="diet-name">{{ diet.dietName }}</div>
+                        {% if diet.description %}
+                            <div class="diet-description">{{ diet.description | slice(0, 80) }}{% if diet.description|length > 80 %}...{% endif %}</div>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- "More Diets" Button -->
+        <a href="{{ path('diet_category', {'categoryName': 'Weight Loss'}) }}" class="more-diets-button" style="text-decoration:none">More Diets</a>
+    </div>
+</section>
+
+<!-- Weight Gain Section -->
+<section class="goal-category-section" id="weight-gain">
+    <div class="section-container">
+        <h2>Weight Gain Diets</h2>
+        <!-- Diet Cards -->
+        <div class="diet-cards">
+            {% for diet in weightGainDiets %}
+                <div class="diet-card" onclick="window.location='{{ path('view_diet', {'id': diet.id}) }}';">
+                    <img class="diet-image" src="{{ asset('uploads/diet_images/' ~ diet.image) }}" alt="{{ diet.dietName }} Image">
+                    <div class="diet-info">
+                        <div class="diet-name">{{ diet.dietName }}</div>
+                        {% if diet.description %}
+                            <div class="diet-description">{{ diet.description | slice(0, 80) }}{% if diet.description|length > 80 %}...{% endif %}</div>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- "More Diets" Button -->
+        <a href="{{ path('diet_category', {'categoryName': 'Weight Gain'}) }}" class="more-diets-button" style="text-decoration:none">More Diets</a>
+    </div>
+</section>
+
+<!-- Staying Healthy Section -->
+<section class="goal-category-section" id="staying-healthy">
+    <div class="section-container">
+        <h2>Staying Healthy Diets</h2>
+        <!-- Diet Cards -->
+        <div class="diet-cards">
+            {% for diet in healthyDiets %}
+                <div class="diet-card" onclick="window.location='{{ path('view_diet', {'id': diet.id}) }}';">
+                    <img class="diet-image" src="{{ asset('uploads/diet_images/' ~ diet.image) }}" alt="{{ diet.dietName }} Image">
+                    <div class="diet-info">
+                        <div class="diet-name">{{ diet.dietName }}</div>
+                        {% if diet.description %}
+                            <div class="diet-description">{{ diet.description | slice(0, 80) }}{% if diet.description|length > 80 %}...{% endif %}</div>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- "More Diets" Button -->
+        <a href="{{ path('diet_category', {'categoryName': 'Maintenance and staying healthy'}) }}" class="more-diets-button" style="text-decoration:none">More Diets</a>
+    </div>
+</section>
+
+  <!-- Read Our Articles Section -->
+<section id="read-articles">
+    <div class="articles-container">
+        <h2>Read Our Articles</h2>
+
+        <div style="display: flex;justify-content: space-evenly;">
+        <!-- Article Cards -->
+        {% for article in latestArticles %}
+            <div class="article-card">
+                <img src="{{ asset('uploads/' ~ article.articleImage) }}" alt="{{ article.articleName }}">
+                <div class="article-info">
+                    <h3>{{ article.articleName }}</h3>
+                    <p>{{ article.articleDescription }}</p>
+                    <a href="{{ path('view_article', {'id': article.id}) }}">Read More</a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        <!-- Call-to-action button -->
+        <a href="" class="cta-button">Explore More Articles</a>
+    </div>
+</section>
+
+<!-- Success Stories Section -->
+<section id="success-stories">
+    <div class="success-stories-container">
+        <h2>Success Stories</h2>
+
+        <div class="testimonies">
+            <!-- Testimonial 1 -->
+            <div class="testimonial">
+                <img src="{{ asset('uploads/pic1.png') }}" alt="Person 1">
+                <div class="testimonial-info">
+                    <p class="name">Chris Jones</p>
+                    <p class="age">30 years old</p>
+                </div>
+                <p class="quote">"Thanks to this site, I achieved my weight loss goal and feel healthier than ever. The personalized diet plans made all the difference!"</p>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial">
+                <img src="{{ asset('uploads/pic2.jpg') }}" alt="Person 2">
+                <div class="testimonial-info">
+                    <p class="name">Jane Smith</p>
+                    <p class="age">25 years old</p>
+                </div>
+                <p class="quote">"The variety of diets and the support from the community here really helped me stay motivated. Highly recommended!"</p>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial">
+                <img src="{{ asset('uploads/pic3.jpg') }}" alt="Person 3">
+                <div class="testimonial-info">
+                    <p class="name">Alex Johnson</p>
+                    <p class="age">35 years old</p>
+                </div>
+                <p class="quote">"I love the simplicity of the diet plans. It's easy to follow, and the results speak for themselves!"</p>
+            </div>
+        </div>
+        <!-- Repeat the above structure for additional testimonials -->
+
+    </div>
+</section>
+<section id="contact-us" style="background: #5d5c5c;">
+    <div class="contact-form-container">
+        <h2 style="text-align: center;
+    font-size: 35px;
+    color: white;
+    font-family: roboto;
+    margin-bottom: 20px;">Contact Us</h2>
+        {# Add your contact form here #}
+        <a href="{{ path('contact')}}" class="cta-button transparent-button">Contact Us for Personalized Assistance</a>
+    </div>
+</section>
+  
+{% endblock %}

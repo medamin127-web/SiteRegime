@@ -1,0 +1,62 @@
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-container button {
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.progress {
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #007bff;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+/* Additional styling for the dropdown arrow */
+select::after {
+    content: '\25BC'; /* Unicode character for down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}

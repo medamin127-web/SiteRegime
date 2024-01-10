@@ -1,0 +1,113 @@
+{% extends 'admin_panel/adminbase.html.twig' %}
+
+{% block title %}Admin Management{% endblock %}
+
+{% block stylesheets %}
+    {# Include your custom stylesheets here #}
+    <link rel="stylesheet" href="{{ asset('css/admins_style.css') }}">
+
+     <style>
+        /* Add custom styles here */
+        .card {
+            max-width: 100%;
+            width: 120px;
+             /* Adjust the width as needed */
+        }
+
+        .card-img-top {
+            width: 100%; /* Make the image fill the card */
+            height: auto; /* Maintain aspect ratio */
+            max-height: 120px;
+            width: 120px;
+            margin: auto /* Limit the maximum height of the image */
+        }
+
+        .card-body {
+            padding: 6px;
+            text-align: center;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+ {% for flashMessage in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1); padding: 10px;">
+        <div style="font-size: 24px; font-weight: bold; text-align: justify;">Admin Management</div>
+      
+    </div>
+
+    <div class="container-fluid mt-3">
+        <div class="">
+            <div class="">
+                <!-- Super Admin Card -->
+                 {% for superAdmin in superAdmin %}
+                <div class="card mb-3 " style="max-width: 100%;width: 200px;margin: auto;">
+                    <img src="{{ asset('uploads/user_images/avatar.png') }}" class="card-img-top" alt="Super Admin Avatar">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{superAdmin.name}}</h5>
+                        <p class="card-text" style="font-weight: 700">Super Admin</p>
+                    </div>
+                </div>
+             {% endfor %}
+                <!-- Admin Cards -->
+                <div class="admins" style="    display: flex;flex-wrap: wrap;justify-content: center;align-items: flex-end;">
+                {% for admin in admins %}
+                    <div class="card mb-3 mr-3" style="max-width: 100%;width: 200px;">
+                        <img src="{{ asset(admin.image) }}" class="card-img-top" alt="Admin Avatar">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ admin.name }}</h5>
+                            <p class="card-text" style="font-weight: 700">Admin</p>
+                             <p class="card-text" style="font-size: 13px;color: #423f3f;">{{admin.email}}</p>
+                            <a href="{{ path('delete_admin', {'id': admin.id}) }}" style="width: 150px;margin: 0;" class="btn btn-danger">Delete Admin</a>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-8" style="margin:auto">
+                <!-- Users Table -->
+                <table id="usersTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {% for user in normalUsers %}
+                            <tr>
+                            <td>{{ user.id }}</td>
+                            <td>
+                                <img src="{{ asset(user.getImage) }}" alt="User Image" class="user-avatar">
+                            </td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                <a href="{{ path('make_user_admin', {'id': user.id}) }}" class="btn btn-success">Make Admin</a>
+                            </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# Include DataTables script #}
+    <script>
+        $(document).ready(function() {
+            $('#usersTable').DataTable();
+        });
+    </script>
+{% endblock %}

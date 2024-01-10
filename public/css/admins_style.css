@@ -1,0 +1,43 @@
+.container-fluid {
+    margin-top: 20px;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.btn-primary,
+.btn-danger,
+.btn-success {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.table th,
+.table td {
+    text-align: center;
+}
+
+.user-avatar {
+    max-height: 50px;
+    max-width: 50px;
+    border-radius: 50%;
+}
+
+/* DataTables Styling */
+.dataTables_wrapper {
+    margin-top: 20px;
+}
+
+/* Responsive DataTables Styling */
+@media screen and (max-width: 767px) {
+    .card {
+        margin-bottom: 20px;
+    }
+}
+

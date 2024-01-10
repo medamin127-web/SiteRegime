@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+{% block title %}Generate Result{% endblock %}
+
+{% block stylesheets %}
+     {# Include your custom stylesheets here #}
+     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+    <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+        
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        }
+        body {
+           height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: #f6f7fb;
+        }
+
+        .container {
+            text-align: center;
+            
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+
+        .calories-info , p {
+            
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .fitting-diet {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .diet-box {
+            width: 300px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .Similardiet-box {
+        width: 200px; /* Adjust the width as needed */
+        height: 170px; /* Adjust the height as needed */
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        margin: 10px; /* Add space between boxes */
+        cursor: pointer;
+        transition: transform 0.2s;
+        }
+
+        .diet-box:hover {
+            transform: scale(1.05);
+        }
+
+        .diet-details {
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+<body>
+  <div class="container">
+    {% if selectedDietIds|length > 0 %}
+        <h1>Congratulations!</h1>
+        <div class="calories-info">
+            Your Best Estimate for Calories to Achieve Your <span style="color:red">{{ goal }} </span> Goal in <span style="color:red"> {{ userDuration }} Weeks </span> is <span style="color:red">{{ user_calories|round(0, 'floor') }} Calories</span>
+
+        </div>
+        <div class="fitting-diet">
+            <p>This is the most fitting diet for you:</p>
+        </div>
+        {% if diet is not null %}
+    <div class="diet-box" style="background-image: url('{{ asset('uploads/diet_images/' ~ diet.image) }}');" onclick="window.location='{{ path('view_diet', {'id': diet.id}) }}';">
+        <div class="diet-details">
+            {{ diet.dietName }}
+        </div>
+        
+    </div>
+
+        {% endif %}
+   {% else %}
+    <div style="margin: auto;margin-top: 30px;padding: 100px;">
+        <h1>No Exact Match Found</h1>
+        <p>Sorry, no diet found exactly based on your criteria.</p>
+    </div> 
+    <div>
+        {% if newFilteredDiets|length > 0 %}
+                    <h2 style="margin-top: 20px; text-align: justify; background: cadetblue;padding: 10px;color: white;">Similar Diets</h2>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+                        {% for diet in newFilteredDiets|slice(0, 5) %}
+                            <div class="Similardiet-box" style="background-image: url('{{ asset('uploads/diet_images/' ~ diet.image) }}');" onclick="window.location='{{ path('view_diet', {'id': diet.id}) }}';">
+                                <div class="diet-details">
+                                    {{ diet.dietName }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+</body>
+{% endblock %}

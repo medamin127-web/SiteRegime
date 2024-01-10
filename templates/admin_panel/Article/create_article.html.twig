@@ -1,0 +1,82 @@
+{% extends 'admin_panel/adminbase.html.twig' %}
+
+{% block title %}Create Article{% endblock %}
+
+{% block stylesheets %}
+    {# Include your custom stylesheets here #}
+    <link rel="stylesheet" href="{{ asset('css/admin_styles.css') }}">
+    <style>
+        /* Add your custom styles here */
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top:25px
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            background-color: #469f46;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #356f35;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Create a New Article</h1>
+{{ form_start(form) }}
+
+<div class="form-field">
+    {{ form_label(form.articleName, 'Article Name:', {'label_attr': {'style': 'font-weight: bold; margin-bottom: 5px; display: block;'}}) }}
+    {{ form_widget(form.articleName, {'attr': {'style': 'width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px;'}}) }}
+</div>
+
+<div class="form-field">
+    {{ form_label(form.articleDescription, 'Article Description:', {'label_attr': {'style': 'font-weight: bold; margin-bottom: 5px; display: block;'}}) }}
+    {{ form_widget(form.articleDescription, {'attr': {'style': 'width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px;'}}) }}
+</div>
+
+<div class="form-field">
+    {{ form_label(form.content, 'Content:', {'label_attr': {'style': 'font-weight: bold; margin-bottom: 5px; display: block;'}}) }}
+    {{ form_widget(form.content, {'attr': {'style': 'width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px;'}}) }}
+</div>
+
+<div class="form-field">
+    {{ form_label(form.articleImage, 'Article Image:', {'label_attr': {'style': 'font-weight: bold; margin-bottom: 5px; display: block;'}}) }}
+    {{ form_widget(form.articleImage, {'attr': {'style': 'width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px;'}}) }}
+</div>
+
+<div class="form-field">
+    {{ form_label(form.date, 'Date:', {'label_attr': {'style': 'font-weight: bold; margin-bottom: 5px; display: block;'}}) }}
+    {{ form_widget(form.date, {'attr': {'style': 'width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px;'}}) }}
+</div>
+
+<button type="submit">Create Article</button>
+
+{{ form_end(form) }}
+    </div>
+{% endblock %}

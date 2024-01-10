@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet"> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">   
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+
+            
+
+            
+        {% endblock %}
+
+          {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {% endblock %}
+    </head>
+    <body>
+<style>
+   .dropdown-content {
+                display: none;
+                position: absolute;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                z-index: 2; 
+                padding: 10px;
+                text-align: justify;
+                background: #333333;
+            }
+
+            .black-button {
+                background-color: black;
+                
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .black-button:hover {
+                background-color: #555555;
+                text-decoration: none;
+            }
+    
+}
+</style>
+     <!-- Navbar -->
+    <nav>
+        <div class="logo">
+            <a href="{{ path('homepage') }}" class="logo" style="display: flex;justify-content: center;align-content: stretch;flex-wrap: wrap;align-items: flex-start;text-decoration:none">     
+                <img src="{{ asset('uploads/logo/fitness.svg') }}" alt="Your Logo">
+                <h3 style="font-family: 'Bebas Neue', sans-serif;color:white">EatSmartLife</h3>
+            </a>
+        </div>
+        <ul class="menu">
+            <li><a href="{{ path('homepage') }}" style="text-decoration:none;color:white">Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn" style="text-decoration:none;color:white">Diets</a>
+                 <div class="dropdown-content" >
+                    <a href="{{ path('diet_category', {'categoryName': 'Weight Loss'}) }}" style="text-decoration:none;color:white">Weight Loss</a>
+                    <a href="{{ path('diet_category', {'categoryName': 'Weight Gain'}) }}" style="text-decoration:none;color:white">Weight Gain</a>
+                    <a href="{{ path('diet_category', {'categoryName': 'Staying Healthy'}) }}" style="text-decoration:none;color:white">Staying Healthy</a>
+                </div>
+            </li>
+            <li><a href="#" style="text-decoration:none;color:white">Articles</a></li>
+            <li><a href="{{ path('contact') }}" style="text-decoration:none;color:white">Contact</a></li>
+            <li><a href="#" style="text-decoration:none;color:white">About Us</a></li>
+        </ul>
+      <div class="user-actions">
+        {% if app.user %}
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hi {{ app.user.name }}!
+                    <img src="{{ asset('uploads/user_images/avatar.png') }}" alt="User Avatar" height="30" class="rounded-circle">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" >
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a>
+                </div>
+            </div>
+        {% else %}
+             <a href="{{ path('app_login') }}" class="black-button" style="text-decoration:none ; color:white;margin-right: 7px;">Login</a>
+            <a href="{{ path('app_signup') }}" class="black-button" style="text-decoration:none ; color:white">Sign Up</a>
+        {% endif %}
+    </div>
+    </nav>
+
+        {% block body %}{% endblock %}
+    </body>
+
+
+      <!-- Footer -->
+    <footer>
+        <div class="social-icons">
+            <!-- Add your social media icons with links -->
+        </div>
+        <div class="contact-info">
+            <!-- Add your contact information -->
+        </div>
+        <div class="quick-links">
+            <!-- Add quick links to important pages -->
+        </div>
+    </footer>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">    
+
+    <title>Dashboard</title>
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+
+   <div class="bg-light border-right" id="sidebar-wrapper" style="box-shadow: inset -1px 0 0 var(--sidebar-border-color); max-width: 300px; padding: 0 var(--sidebar-padding-right) 0 var(--sidebar-padding-left); position: static; width: auto; z-index: 2019; background: var(--sidebar-bg); height: 100%; left: calc(-40px - var(--sidebar-max-width)); min-height: 100vh; overflow-x: hidden; overflow-y: auto; top: 0; transition: left .3s;">
+
+        <div class="sidebar-header text-center" style="padding: 17px;">
+              <img src="{{ asset('uploads/logo/fitness1.svg') }}" alt="Your Logo" style="width:20px">
+              <h3 style="font-family: 'Bebas Neue', sans-serif;color:black;font-size:23px">EatSmartLife</h3>
+        </div>
+
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action" style="display: flex; align-items: center;">
+                <i class="fas fa-home" style="margin-right: 10px;"></i> <!-- Font Awesome Icon with margin -->
+                Dashboard
+            </a>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <a href="{{ path('admin_management') }}" class="list-group-item list-group-item-action" style="display: flex; align-items: center;">
+                <i class=" fa fa-user" style="margin-right: 10px;"></i>
+                Admins
+            </a>
+            {% endif %}
+            <a href="{{path('admin_categories')}}" class="list-group-item list-group-item-action" style="display: flex; align-items: center;">
+                <i class="fa fa-list-alt" style="margin-right: 10px;"></i> <!-- Font Awesome Icon with margin -->
+                Categories
+            </a>
+             <a href="{{path('admin_diet')}}" class="list-group-item list-group-item-action" style="display: flex; align-items: center;">
+                <i class="fas fa-newspaper" style="margin-right: 10px;"></i> <!-- Font Awesome Icon with margin -->
+                Diets
+            </a>
+             <a href="{{path('admin_plat')}}" class="list-group-item list-group-item-action" style="display: flex; align-items: center;">
+                <i class="fa fa-cutlery" style="margin-right: 10px;"></i> <!-- Font Awesome Icon with margin -->
+                Meals
+            </a>
+            <a href="{{path('create_article')}}" class="list-group-item list-group-item-action" style="display: flex; align-items: center;">
+                <i class="fa fa-cutlery" style="margin-right: 10px;"></i> <!-- Font Awesome Icon with margin -->
+                Articles
+            </a>
+        </div>
+    </div>
+  
+  
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" style="width: 100%;">
+      <nav class="navbar navbar-expand-lg" style="background-color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div class="container-fluid" style="display: flex; height: 56px; justify-content: space-between; padding: 11px calc(var(--lg-content-padding-right) + var(--resize-handler-width)) 11px var(--lg-content-padding-left); position: relative;">
+        <div class="content-top" style="align-items: center; box-shadow: 0 1px 0 var(--content-top-border-color); margin-bottom: 1px; padding: 5px 15px 5px var(--content-padding-left);">
+           
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-bell"></i> <!-- Notification Icon -->
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ asset('uploads/user_images/avatar.png')}}" alt="User Avatar" height="30" class="rounded-circle">
+                    </a>
+                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                       
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{path('app_logout')}}">Log Out</a>
+                        </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+      <!-- Page Content -->
+      <div class="container-fluid">
+        {% block body %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  {% block javascripts %}{% endblock %}
+</body>
+</html>

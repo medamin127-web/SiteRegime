@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+{% block title %}Categoru Diets{% endblock %}
+
+{% block stylesheets %}
+ {# Include your custom stylesheets here #}
+     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f6f7fb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: justify;
+            font-size: 35px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .diet-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .diet-card {
+            width: 300px;
+            margin: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            transition: transform 0.2s;
+            cursor: pointer;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .diet-card:hover {
+            transform: scale(1.05);
+        }
+
+        .diet-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .diet-info {
+            text-align: left;
+        }
+
+        .diet-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .diet-description {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .diet-type {
+            font-size: 17px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .diet-calories {
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="container">
+        <h1>{{categoryName}} Diets </h1>
+        <div class="diet-cards">
+            {% for diet in diets %}
+                <div class="diet-card" onclick="window.location='{{ path('view_diet', {'id': diet.id}) }}';">
+                    <img class="diet-image" src="{{ asset('uploads/diet_images/' ~ diet.image) }}" alt="{{ diet.dietName }} Image">
+                    <div class="diet-info">
+ <div class="diet-name">{{ diet.dietName }}{% if diet.type != 'all' %} - {{ diet.type }}{% endif %}</div>                        {% if diet.description %}
+                            <div class="diet-description">{{ diet.description | slice(0, 80) }}{% if diet.description|length > 80 %}...{% endif %}</div>
+                        {% endif %}
+                       
+                        <div class="diet-calories">{{ diet.totalCalories}} Calories</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    </body>
+{% endblock %}

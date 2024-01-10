@@ -1,0 +1,105 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.signup-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: #333c36;
+}
+
+input,
+button,
+select {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+input[type="file"] {
+    padding: 10px;
+}
+
+/* Additional information section styles */
+.additional-info-section {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.additional-info-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.additional-info-fields label {
+    margin-bottom: 5px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.additional-info-section .form-row {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    background-color: #29b6f6;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #039be5;
+}
+
+/* Added styling for the message */
+p {
+    margin-top: 15px;
+    color: #777;
+}
+
+p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
